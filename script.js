@@ -109,5 +109,3 @@ function draw() {
         lavaArr[i].eat2()
     }
 }
-
-console.log("test");
