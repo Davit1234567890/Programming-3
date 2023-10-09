@@ -24,11 +24,11 @@ let waterArr = []
 let lavaArr = []
 
 function setup() {
-    characters(1, 50)
-    characters(2, 20)
-    characters(3, 20)
-    characters(4, 1)
-    characters(5, 1)
+    characters(1, 300)
+    characters(2, 70)
+    characters(3, 50)
+    characters(4, 5)
+    characters(5, 5)
     frameRate(5);
     createCanvas(matrix[0].length * side, matrix.length * side);
     background('#acacac');
