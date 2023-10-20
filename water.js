@@ -1,4 +1,7 @@
-class Water extends LivingCreature {
+let random = require("./random")
+let LivingCreature = require("./LivingCreature")
+
+module.exports = class Water extends LivingCreature {
     getNewCoordinates() {
         this.directions = [
             [this.x - 1, this.y - 1],
