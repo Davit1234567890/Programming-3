@@ -3,24 +3,25 @@ var express = require("express");
 var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
+var fs = require("fs")
 
 app.use(express.static("../Programming-3"));
 
 app.get("/", function (req, res) {
-res.redirect("index.html");
+    res.redirect("index.html");
 });
 
 server.listen(3000, function () {
-console.log("Example is running on port 3000");
+    console.log("Example is running on port 3000");
 });
 
 let random = require("./random");
 
- grassArr = []
- grassEaterArr = []
- predatorArr = []
- waterArr = []
- lavaArr = []
+grassArr = []
+grassEaterArr = []
+predatorArr = []
+waterArr = []
+lavaArr = []
 
 let LivingCreature = require("./LivingCreature")
 let Grass = require("./Grass")
@@ -31,22 +32,34 @@ let Lava = require("./lava")
 
 let cl = false
 
-io.on("connection", function(socket) {
-    if(cl) {
+io.on("connection", function (socket) {
+    if (cl) {
         setInterval(drawserver, 200)
         cl = true
     }
+    startGame()
 })
 
- matrix = []
+let intervalID
+
+let time = 1000
+
+function startGame() {
+    clearInterval(intervalID)
+    intervalID = setInterval(() => {
+        GenerateMatrix()
+    }, time);
+}
+
+matrix = []
 
 var n = 50;
 var m = 50;
 
 function characters(index, count) {
     for (let a = 0; a < count; a++) {
-        var v = Math.floor(Math.random()* n)
-        var w = Math.floor(Math.random()* n)
+        var v = Math.floor(Math.random() * n)
+        var w = Math.floor(Math.random() * n)
         matrix[v][w] = index
     }
 }
@@ -123,4 +136,15 @@ function drawserver() {
     io.emit("matrix", sendData)
 }
 
-setInterval(drawserver, 1000)
+setInterval(drawserver, 500)
+
+let qanak = {
+    Grass: grassArr.length,
+    GrassEater: grassEaterArr.length,
+    Predator: predatorArr.length,
+    Water: waterArr.length,
+    Lava: lavaArr.length
+}
+
+fs.writeFile("stats.json", JSON.stringify(qanak))
+io.emit("grassqanak", qanak)
