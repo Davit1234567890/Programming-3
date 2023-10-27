@@ -1,5 +1,6 @@
 let LivingCreature = require("./LivingCreature")
 let random = require("./random")
+let hunterArr = []
 
 module.exports = class Predator extends LivingCreature {
     constructor(x, y, index) {
@@ -25,25 +26,28 @@ module.exports = class Predator extends LivingCreature {
         return super.chooseCell(character)
     }
 
-    mul() {
+    mul() {    
         setTimeout(() => {
-            var newCell = random(this.chooseCell(2))
-            if (newCell) {
-                var newGrass = new Predator(newCell[0], newCell[1], this.index)
-                predatorArr.push(newGrass)
-                matrix[newCell[1]][newCell[0]] = 3
-            }
-        }, 2500);
+        var newCell = random(this.chooseCell(3))
+        if (newCell) {
+            var newhunter = new Hunter(newCell[0], newCell[1], this.index)
+            hunterArr.push(newhunter)
+            matrix[newCell[1]][newCell[0]] = 6
+            console.log(hunterArr.length);
+            
+        }
+    }, 2500);
     }
+
     eat() {
-        let foods = this.chooseCell(2)
+        let foods = this.chooseCell(3)
         let food = random(foods)
         if (food) {
-            this.energy++;
+            this.energy = this.energy + 2;
             matrix[this.y][this.x] = 0
             let newX = food[0]
             let newY = food[1]
-            matrix[food[1]][food[0]] = 3
+            matrix[food[1]][food[0]] = 6
             this.x = newX
             this.y = newY
             for (var i in grassEaterArr) {
@@ -68,7 +72,7 @@ module.exports = class Predator extends LivingCreature {
             let newX = newCell[0]
             let newY = newCell[1]
             matrix[this.y][this.x] = 0
-            matrix[newY][newX] = 3
+            matrix[newY][newX] = 6
             this.x = newX
             this.y = newY
         }

@@ -1,37 +1,45 @@
-body {
-    font-family: Arial, Helvetica, sans-serif!important;
-}
+button {
+    margin-top: 50px;
+    margin-right: 26px;
+    width: 350px;
+    height: 550;
+    border-radius: 30px;
+    font-size: 50px;
+    color: #fff;
+    font-weight: 800;
+    letter-spacing: 5px;
+    transition: all 0.25s ease-in-out;
+    cursor: pointer;
+    background-color: rgb(224, 108, 93);
+  }
 
-#chat {
-    width: 1000px;
-    margin:auto;
-    background-color: #FAFAFA;
-    border: 1px solid #acacac;
-    padding: 1em;   
-    text-align: center;
-}
+  #Winter{
+    position: absolute;
+    top: 50px;
+    right: 25px;
+  }
 
-#message {
-    text-align: center;
-    border: 2px solid #3498db;
-    width: 200px;
-    height: 50px;
-    margin: auto;
-    font-size: 1.25em;
-}
+  #Spring{
+    position: absolute;
+    top: 200px;
+    right: 25px;
+  }
 
-#submit {
-    width: 175px;
-    height: 50px;
-    border-radius: 0;
-    background-color: #43A047;
-    color: white;
-    font-size: 1.25em;
-    border: none;
-}
+  #Summer{
+    position: absolute;
+    top: 350px;
+    right: 25px;
+  }
 
-#chat_p {
-    font-weight: bold;
-    font-size: 1.5em;
-    color: #34495e;
-}
+  #Autumn{
+    position: absolute;
+    top: 500px;
+    right: 25px;
+  }
+
+  #qanakEl {
+    position: absolute;
+    top: 0px;
+    right: 550px;
+    font-size: 100px;
+  }

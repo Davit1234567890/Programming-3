@@ -1,11 +1,29 @@
 var express = require("express");
 
+grassArr = []
+grassEaterArr = []
+predatorArr = []
+waterArr = []
+lavaArr = []
+hunterArr = []
+
 var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var fs = require("fs")
 
-app.use(express.static("../Programming-3"));
+let qanakobj = {
+    GrassQanak: grassArr.length,
+    GrassEaterQanak: grassEaterArr.length,
+    PredatorQanak: predatorArr.length,
+    WaterQanak: waterArr.length,
+    LavaQanak: lavaArr.length,
+    HunterQanak: hunterArr.length
+}
+
+
+
+app.use(express.static("."));
 
 app.get("/", function (req, res) {
     res.redirect("index.html");
@@ -16,25 +34,18 @@ server.listen(3000, function () {
 });
 
 let random = require("./random");
-
-grassArr = []
-grassEaterArr = []
-predatorArr = []
-waterArr = []
-lavaArr = []
-
-let LivingCreature = require("./LivingCreature")
 let Grass = require("./Grass")
 let GrassEater = require("./GrassEater")
 let Predator = require("./predator")
 let Water = require("./water")
 let Lava = require("./lava")
+let Hunter = require("./Hunter")
 
 let cl = false
 
 io.on("connection", function (socket) {
     if (cl) {
-        setInterval(drawserver, 200)
+        setInterval(drawserver, 1000)
         cl = true
     }
     startGame()
@@ -53,8 +64,8 @@ function startGame() {
 
 matrix = []
 
-var n = 50;
-var m = 50;
+var n = 25;
+var m = 25;
 
 function characters(index, count) {
     for (let a = 0; a < count; a++) {
@@ -71,11 +82,12 @@ function GenerateMatrix() {
             matrix[i].push(0)
         }
     }
-    characters(1, 300)
-    characters(2, 70)
-    characters(3, 50)
+    characters(1, 15)
+    characters(2, 10)
+    characters(3, 5)
     characters(4, 5)
     characters(5, 5)
+    characters(6,7)
     return matrix;
 }
 
@@ -103,6 +115,10 @@ for (var y = 0; y < matrix.length; ++y) {
             var lav = new Lava(x, y, 1)
             waterArr.push(lav)
         }
+        else if (matrix[y][x] == 6) {
+            var hunt = new Hunter(x, y, 1)
+            hunterArr.push(hunt)
+        }
     }
 }
 
@@ -128,7 +144,14 @@ function drawserver() {
     for (var i in lavaArr) {
         lavaArr[i].eat2()
     }
-
+    for(var i in hunterArr){
+        hunterArr[i].move()
+    }
+    for(var i in hunterArr){
+        hunterArr[i].eat()
+    }
+    fs.writeFileSync("stats.json", JSON.stringify(qanakobj))
+    io.emit("static", qanakobj)
     let sendData = {
         matrix: matrix
     }
@@ -136,15 +159,4 @@ function drawserver() {
     io.emit("matrix", sendData)
 }
 
-setInterval(drawserver, 500)
-
-let qanak = {
-    Grass: grassArr.length,
-    GrassEater: grassEaterArr.length,
-    Predator: predatorArr.length,
-    Water: waterArr.length,
-    Lava: lavaArr.length
-}
-
-fs.writeFile("stats.json", JSON.stringify(qanak))
-io.emit("grassqanak", qanak)
+setInterval(drawserver, 1000)
