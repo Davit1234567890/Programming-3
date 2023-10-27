@@ -2,7 +2,7 @@ let LivingCreature = require("./LivingCreature")
 let random = require("./random")
 let hunterArr = []
 
-module.exports = class Predator extends LivingCreature {
+module.exports = class Hunter extends LivingCreature {
     constructor(x, y, index) {
         super(x, y, index)
         this.directions = []

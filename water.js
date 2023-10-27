@@ -1,5 +1,6 @@
 let random = require("./random")
 let LivingCreature = require("./LivingCreature")
+let waterArr = []
 
 module.exports = class Water extends LivingCreature {
     getNewCoordinates() {

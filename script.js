@@ -8,6 +8,7 @@ let predatorcolor = "black"
 let watercolor = "blue"
 let lavacolor = "orange"
 let huntercolor  = "Bisque"
+let voidcolor = "grey"
 let Winter = document.getElementById("Winter")
 let Spring = document.getElementById("Spring")
 let Summer = document.getElementById("Summer")
@@ -56,7 +57,7 @@ function drawmatrix(data) {
                 fill(grasscolor);
             }
             else if (matrix[y][x] == 0) {
-                fill("#acacac");
+                fill(voidcolor);
             }
             else if (matrix[y][x] == 2) {
                 fill(grasseatercolor);
@@ -80,15 +81,14 @@ function drawmatrix(data) {
 }
 
 socket.on("matrix", drawmatrix)
-
-function mouseClicked() {
-
-    console.log(mouseX, mouseY);
-    
-    }
  
-    socket.on("static", function(qanak) {
-        norobj = qanak
-        console.log(norobj)
-        QanakEl.innerText = qanak.WaterQanak + " " + qanak.GrassQanak
+    socket.on("stats", function(qanak) {
+        QanakEl.innerText = "Grass:" + qanak.GrassQanak + "\n GrassEater:" + qanak.GrassEaterQanak + "\n Predator:" + qanak.PredatorQanak + "\n Water:" + qanak.WaterQanak + "\n Lava:" + qanak.LavaQanak + "\n Hunter:" + qanak.HunterQanak
     })
+
+    
+    function mouseClicked() {
+
+        console.log(mouseX, mouseY);
+
+        }

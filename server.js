@@ -1,3 +1,10 @@
+let Grass = require("./Grass")
+let GrassEater = require("./GrassEater")
+let Predator = require("./predator")
+let Water = require("./water")
+let Lava = require("./lava")
+let Hunter = require("./Hunter")
+
 var express = require("express");
 
 grassArr = []
@@ -21,8 +28,6 @@ let qanakobj = {
     HunterQanak: hunterArr.length
 }
 
-
-
 app.use(express.static("."));
 
 app.get("/", function (req, res) {
@@ -32,14 +37,6 @@ app.get("/", function (req, res) {
 server.listen(3000, function () {
     console.log("Example is running on port 3000");
 });
-
-let random = require("./random");
-let Grass = require("./Grass")
-let GrassEater = require("./GrassEater")
-let Predator = require("./predator")
-let Water = require("./water")
-let Lava = require("./lava")
-let Hunter = require("./Hunter")
 
 let cl = false
 
@@ -151,7 +148,8 @@ function drawserver() {
         hunterArr[i].eat()
     }
     fs.writeFileSync("stats.json", JSON.stringify(qanakobj))
-    io.emit("static", qanakobj)
+    io.emit("stats", qanakobj)
+    
     let sendData = {
         matrix: matrix
     }

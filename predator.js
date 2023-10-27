@@ -1,5 +1,6 @@
 let LivingCreature = require("./LivingCreature")
 let random = require("./random")
+let predatorArr = []
 
 module.exports = class Predator extends LivingCreature {
     constructor(x, y, index) {
