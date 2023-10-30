@@ -89,6 +89,6 @@ socket.on("matrix", drawmatrix)
     
     function mouseClicked() {
 
-        console.log(mouseX, mouseY);
+            console.log(mouseX, mouseY);
 
         }

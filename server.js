@@ -4,8 +4,13 @@ let Predator = require("./predator")
 let Water = require("./water")
 let Lava = require("./lava")
 let Hunter = require("./Hunter")
-
+var grassArr = []
 var express = require("express");
+
+var app = express();
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
+var fs = require("fs")
 
 grassArr = []
 grassEaterArr = []
@@ -13,11 +18,6 @@ predatorArr = []
 waterArr = []
 lavaArr = []
 hunterArr = []
-
-var app = express();
-var server = require('http').Server(app);
-var io = require('socket.io')(server);
-var fs = require("fs")
 
 let qanakobj = {
     GrassQanak: grassArr.length,
